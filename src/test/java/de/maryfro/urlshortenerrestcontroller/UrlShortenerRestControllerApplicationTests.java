@@ -1,8 +1,9 @@
 package de.maryfro.urlshortenerrestcontroller;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.maryfro.urlshortenerrestcontroller.controller.RestController;
 import de.maryfro.urlshortenerrestcontroller.dto.UrlDto;
 import de.maryfro.urlshortenerrestcontroller.entity.Url;
+import de.maryfro.urlshortenerrestcontroller.repo.Repository;
 import de.maryfro.urlshortenerrestcontroller.service.ShortenerService;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -34,8 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-//@ContextConfiguration(classes = {TestContext.class, WebAppContext.class})
-//@WebAppConfiguration
+
 @AutoConfigureMockMvc
 class UrlShortenerRestControllerApplicationTests {
     @Autowired
@@ -43,8 +43,10 @@ class UrlShortenerRestControllerApplicationTests {
 
     @MockBean
     private ShortenerService shortenerServiceMock;
-    @Autowired
-    private WebApplicationContext webApplicationContext;
+
+    @MockBean
+    Repository repository;
+
 
 
     @Test
@@ -54,7 +56,7 @@ class UrlShortenerRestControllerApplicationTests {
     @Before
     public void setup() {
 
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders
                 .standaloneSetup(RestController.class)
                 .setMessageConverters(
@@ -74,25 +76,26 @@ class UrlShortenerRestControllerApplicationTests {
         Url added = new Url(40,
                 "http://microsoft.com",
                 LocalDate.of(2021, 5, 10),
-                "microso");
+                 "microso");
 
-        when(shortenerServiceMock.save(any(Url.class))).thenReturn(added);
+        when(shortenerServiceMock.shortenUrl(any(UrlDto.class))).thenReturn(added.shortUrl);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(dto);
 
         mockMvc.perform(post("/")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json)
+                .content("{ \"long_url\": \"http://www.microsoft.com\"}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.shortUrl", is("microso")));
+                .andExpect(content().contentType(TestUtil.APPLICATION_JSON))
+                .andExpect(jsonPath("$.shortUrl", is("http://localhost:8080/"+ "microso")));
 
-        verify(shortenerServiceMock, times(1)).shortenUrl(dto);
+
+        verify(shortenerServiceMock, times(1)).shortenUrl(any(UrlDto.class));
+        verify(shortenerServiceMock, times(1)).save(any(Url.class));
         verifyNoMoreInteractions(shortenerServiceMock);
     }
 
 
 }
+
