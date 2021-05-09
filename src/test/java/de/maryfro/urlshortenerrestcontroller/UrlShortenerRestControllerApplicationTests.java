@@ -1,6 +1,6 @@
 package de.maryfro.urlshortenerrestcontroller;
 
-import de.maryfro.urlshortenerrestcontroller.controller.RestController;
+import de.maryfro.urlshortenerrestcontroller.controller.UrlShortenerController;
 import de.maryfro.urlshortenerrestcontroller.dto.UrlDto;
 import de.maryfro.urlshortenerrestcontroller.entity.Url;
 import de.maryfro.urlshortenerrestcontroller.repo.Repository;
@@ -21,7 +21,6 @@ import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConvert
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
 
@@ -58,7 +57,7 @@ class UrlShortenerRestControllerApplicationTests {
 
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders
-                .standaloneSetup(RestController.class)
+                .standaloneSetup(UrlShortenerController.class)
                 .setMessageConverters(
                         new MappingJackson2HttpMessageConverter(),
                         new Jaxb2RootElementHttpMessageConverter()).build();
@@ -67,16 +66,10 @@ class UrlShortenerRestControllerApplicationTests {
 
     @Test
     void test_postRequest() throws Exception {
-        UrlDto dto = new UrlDto(0,
-                "http://microsoft.com",
-                LocalDate.of(2021, 5, 10),
-                null);
-
-
         Url added = new Url(40,
                 "http://microsoft.com",
                 LocalDate.of(2021, 5, 10),
-                 "microso");
+                 "ceBwbY");
 
         when(shortenerServiceMock.shortenUrl(any(UrlDto.class))).thenReturn(added.shortUrl);
 
@@ -88,10 +81,11 @@ class UrlShortenerRestControllerApplicationTests {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON))
-                .andExpect(jsonPath("$.shortUrl", is("http://localhost:8080/"+ "microso")));
+                .andExpect(jsonPath("$.shortUrl", is("http://localhost:8080/"+ "ceBwbY")));
 
 
         verify(shortenerServiceMock, times(1)).shortenUrl(any(UrlDto.class));
+        verify(shortenerServiceMock, times(1)).getUuid(any(UrlDto.class));
         verify(shortenerServiceMock, times(1)).save(any(Url.class));
         verifyNoMoreInteractions(shortenerServiceMock);
     }

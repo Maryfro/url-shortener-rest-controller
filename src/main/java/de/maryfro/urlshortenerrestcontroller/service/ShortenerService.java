@@ -15,12 +15,18 @@ public class ShortenerService {
     }
 
 
+    public long getUuid(UrlDto urlDto) {
+        return StringShortenerHelper.longUrlToUuid(urlDto.longUrl);
+    }
+
     public String shortenUrl(UrlDto urlDto) {
-        String prefix = "http://";
-        String res = urlDto.longUrl.substring(prefix.length());
-        if (res.length() < 7)
-            return res;
-        return res.substring(0, 7);
+        long uuid = getUuid(urlDto);
+        return StringShortenerHelper.uuidToShortUrl(uuid);
+    }
+
+    public Url createUrl(UrlDto urlDto){
+        String res = shortenUrl(urlDto);
+        return new Url(urlDto.id, urlDto.longUrl, urlDto.expirationDate, res);
     }
 
     public Url save(Url url) {

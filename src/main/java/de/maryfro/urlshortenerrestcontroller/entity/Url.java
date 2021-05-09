@@ -20,11 +20,15 @@ public class Url {
     public String shortUrl;
 
 
+
+
     public Url(int id, String longUrl, LocalDate expirationDate, String shortUrl) {
         this.id = id;
         this.longUrl = longUrl;
         this.expirationDate = expirationDate;
         this.shortUrl=shortUrl;
+
+
     }
 
     public Url() {
@@ -64,17 +68,18 @@ public class Url {
         this.shortUrl = shortUrl;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Url url = (Url) o;
-        return id == url.id && Objects.equals(longUrl, url.longUrl) && Objects.equals(expirationDate, url.expirationDate);
+        return id == url.id && Objects.equals(longUrl, url.longUrl) && Objects.equals(expirationDate, url.expirationDate) && Objects.equals(shortUrl, url.shortUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, longUrl, expirationDate);
+        return Objects.hash(id, longUrl, expirationDate, shortUrl);
     }
 
     @Override
@@ -83,6 +88,7 @@ public class Url {
                 "id=" + id +
                 ", longUrl='" + longUrl + '\'' +
                 ", expirationDate=" + expirationDate +
+                ", shortUrl='" + shortUrl + '\'' +
                 '}';
     }
 }

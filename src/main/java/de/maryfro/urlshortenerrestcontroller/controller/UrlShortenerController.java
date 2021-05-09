@@ -13,20 +13,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/")
-public class RestController {
+public class UrlShortenerController {
     private final ShortenerService shortenerService;
 
-    public RestController(ShortenerService shortenerService) {
+    public UrlShortenerController(ShortenerService shortenerService) {
         this.shortenerService = shortenerService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public ShortUrl redirect(@RequestBody UrlDto urlDto) {
-        String res = shortenerService.shortenUrl(urlDto);
-        urlDto.shortUrl = new ShortUrl(res);
-        Url url = new Url(urlDto.id,  urlDto.longUrl, urlDto.expirationDate, urlDto.shortUrl.shortUrl);
+    public ShortUrl getShortUrl(@RequestBody UrlDto urlDto) {
+        Url url = shortenerService.createUrl(urlDto);
         shortenerService.save(url);
+        urlDto.shortUrl = new ShortUrl(url.getShortUrl());
         return urlDto.shortUrl;
     }
 }
