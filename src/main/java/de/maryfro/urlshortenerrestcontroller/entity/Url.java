@@ -22,11 +22,13 @@ public class Url {
 
 
 
+
     public Url(int id, String longUrl, LocalDate expirationDate, String shortUrl) {
         this.id = id;
         this.longUrl = longUrl;
         this.expirationDate = expirationDate;
         this.shortUrl=shortUrl;
+
 
 
     }
@@ -62,10 +64,6 @@ public class Url {
 
     public String getShortUrl() {
         return shortUrl;
-    }
-
-    public void setShortUrl(String shortUrl) {
-        this.shortUrl = shortUrl;
     }
 
 
