@@ -70,7 +70,7 @@ class UrlShortenerRestControllerApplicationTests {
                 LocalDate.of(2021, 5, 10),
                  "ceBwbY");
 
-        when(shortenerServiceMock.shortenUrl(any(Url.class))).thenReturn(added.shortUrl);
+        when(shortenerServiceMock.shortenUrl(added)).thenReturn(added.shortUrl);
 
 
         mockMvc.perform(post("/")
