@@ -15,21 +15,18 @@ public class ShortenerService {
     }
 
 
-    public long getUuid(UrlDto urlDto) {
-        return StringShortenerHelper.longUrlToUuid(urlDto.longUrl);
+    public long getUuid(Url url) {
+        return StringShortenerHelper.longUrlToUuid(url.longUrl);
     }
 
-    public String shortenUrl(UrlDto urlDto) {
-        long uuid = getUuid(urlDto);
+    public String shortenUrl(Url url) {
+        long uuid = getUuid(url);
         return StringShortenerHelper.uuidToShortUrl(uuid);
     }
 
-    public Url createUrl(UrlDto urlDto){
-        String res = shortenUrl(urlDto);
-        return new Url(urlDto.id, urlDto.longUrl, urlDto.expirationDate, res);
-    }
 
     public Url save(Url url) {
+        url.shortUrl = shortenUrl(url);
         repo.save(url);
         return url;
     }
