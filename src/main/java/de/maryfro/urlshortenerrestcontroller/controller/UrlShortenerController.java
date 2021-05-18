@@ -20,11 +20,11 @@ public class UrlShortenerController {
         this.shortenerService = shortenerService;
     }
 
-    private static Url convertUrlDtoToUrl(UrlDto urlDto){
+    private static Url convertUrlDtoToUrl(UrlDto urlDto) {
         return new Url(urlDto.id, urlDto.longUrl, urlDto.expirationDate, null);
     }
 
-    private static UrlDto convertUrlToUrlDto(Url url){
+    private static UrlDto convertUrlToUrlDto(Url url) {
         return new UrlDto(url.id, url.longUrl, url.expirationDate, new ShortUrl(url.shortUrl));
     }
 
@@ -32,7 +32,7 @@ public class UrlShortenerController {
     @ResponseStatus(HttpStatus.OK)
     public ShortUrl getShortUrl(@RequestBody UrlDto urlDto) {
         Url url = convertUrlDtoToUrl(urlDto);
-        shortenerService.save(url);
-        return new ShortUrl(url.getShortUrl());
+        Url added = shortenerService.save(url);
+        return new ShortUrl(added.getShortUrl());
     }
 }
