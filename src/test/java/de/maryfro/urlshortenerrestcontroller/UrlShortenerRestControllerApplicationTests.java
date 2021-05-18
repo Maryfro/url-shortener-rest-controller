@@ -46,7 +46,6 @@ class UrlShortenerRestControllerApplicationTests {
     Repository repository;
 
 
-
     @Test
     void contextLoads() {
     }
@@ -68,19 +67,20 @@ class UrlShortenerRestControllerApplicationTests {
         Url added = new Url(40,
                 "http://microsoft.com",
                 LocalDate.of(2021, 5, 10),
-                 "ceBwbY");
+                "ceBwbY");
 
-        when(shortenerServiceMock.shortenUrl(any(Url.class))).thenReturn(added.shortUrl);
+        when(shortenerServiceMock.save(any(Url.class))).thenReturn(any(Url.class));
 
 
         mockMvc.perform(post("/")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"long_url\": \"http://www.microsoft.com\"}")
+                .content("{ \"longUrl\": \"http://www.microsoft.com\"}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON))
-                .andExpect(jsonPath("$.shortUrl", is("http://localhost:8080/"+ "ceBwbY")));
+                .andExpect(jsonPath("$.shortUrl", is("http://localhost:8080/ceBwbY")));
+      //  .andExpect(content().json("{\"shortUrl\": \"http://localhost:8080/ceBwbY\"}"));
 
 
         verify(shortenerServiceMock, times(1)).shortenUrl(any(Url.class));
