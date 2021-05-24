@@ -6,6 +6,8 @@ import de.maryfro.urlshortenerrestcontroller.entity.Url;
 import de.maryfro.urlshortenerrestcontroller.service.RedirectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
+
 
 @RestController
 public class RedirectRestController {
@@ -21,10 +23,14 @@ public class RedirectRestController {
 
     @GetMapping("/{shortUrl}")
     @ResponseStatus(HttpStatus.MOVED_PERMANENTLY)
-    public String redirectToLongUrl(@PathVariable String shortUrl) {
+    public RedirectView redirectToLongUrl(@PathVariable String shortUrl) {
         Url url = redirectService.findLongUrlByShortUrl(shortUrl);
-        UrlDto urlDto = convertUrlToUrlDto(url);
-        return urlDto.longUrl;
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl(url.longUrl);
+        //UrlDto urlDto = convertUrlToUrlDto(url);
+        return redirectView;
+
+
     }
 
 }
