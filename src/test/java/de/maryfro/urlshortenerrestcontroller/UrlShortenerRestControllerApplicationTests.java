@@ -70,7 +70,7 @@ class UrlShortenerRestControllerApplicationTests {
                 LocalDate.of(2021, 5, 10),
                  "ceBwbY");
 
-        when(shortenerServiceMock.shortenUrl(added)).thenReturn(added.shortUrl);
+        when(shortenerServiceMock.save(any(Url.class))).thenReturn(added);
 
 
         mockMvc.perform(post("/")
@@ -83,8 +83,7 @@ class UrlShortenerRestControllerApplicationTests {
                 .andExpect(jsonPath("$.shortUrl", is("http://localhost:8080/"+ "ceBwbY")));
 
 
-        verify(shortenerServiceMock, times(1)).shortenUrl(any(Url.class));
-        verify(shortenerServiceMock, times(1)).getUuid(any(Url.class));
+
         verify(shortenerServiceMock, times(1)).save(any(Url.class));
         verifyNoMoreInteractions(shortenerServiceMock);
     }

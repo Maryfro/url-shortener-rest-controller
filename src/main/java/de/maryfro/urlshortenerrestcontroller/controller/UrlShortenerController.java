@@ -32,7 +32,7 @@ public class UrlShortenerController {
     @ResponseStatus(HttpStatus.OK)
     public ShortUrl getShortUrl(@RequestBody UrlDto urlDto) {
         Url url = convertUrlDtoToUrl(urlDto);
-        shortenerService.save(url);
-        return new ShortUrl(url.getShortUrl());
+        Url added = shortenerService.save(url);
+        return new ShortUrl(added.getShortUrl());
     }
 }

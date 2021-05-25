@@ -19,7 +19,11 @@ public class RedirectRestController {
     @GetMapping("/{shortUrl}")
     @ResponseStatus(HttpStatus.MOVED_PERMANENTLY)
     public RedirectView redirectToLongUrl(@PathVariable String shortUrl) {
-        Url url = redirectService.findLongUrlByShortUrl(shortUrl);
+
+        Url url = redirectService.getCachedUrl(shortUrl);
+        if (url == null) {
+            url = redirectService.findLongUrlByShortUrl(shortUrl);
+        }
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl(url.longUrl);
         return redirectView;
