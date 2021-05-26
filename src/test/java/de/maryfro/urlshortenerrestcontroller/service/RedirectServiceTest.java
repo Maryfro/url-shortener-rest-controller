@@ -1,5 +1,4 @@
 package de.maryfro.urlshortenerrestcontroller.service;
-import de.maryfro.urlshortenerrestcontroller.cache.LRUCache;
 import de.maryfro.urlshortenerrestcontroller.entity.Url;
 import de.maryfro.urlshortenerrestcontroller.repo.Repository;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ class RedirectServiceTest {
     Repository repository;
 
     @MockBean
-    LRUCache cache;
+    LRUCacheService cache;
 
 
 

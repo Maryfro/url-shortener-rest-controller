@@ -1,18 +1,18 @@
-package de.maryfro.urlshortenerrestcontroller.cache;
+package de.maryfro.urlshortenerrestcontroller.service;
 
 import de.maryfro.urlshortenerrestcontroller.entity.Url;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
-@Component
-public class LRUCache {
+@Service
+public class LRUCacheService {
     final static int cacheSize = 10;
     HashMap<String, Url> map;
     LinkedList<String> list;
 
-    public LRUCache() {
+    public LRUCacheService() {
         this.map = new HashMap<>(cacheSize);
         this.list = new LinkedList<>();
     }
