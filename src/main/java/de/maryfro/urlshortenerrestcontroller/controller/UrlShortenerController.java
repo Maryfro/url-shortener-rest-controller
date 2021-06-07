@@ -23,10 +23,12 @@ public class UrlShortenerController {
     }
 
 
-    private static Url convertUrlDtoToUrl(UrlDto urlDto){
-        if(urlDto.expirationDate == null){
+    private static Url convertUrlDtoToUrl(UrlDto urlDto) {
+        if (urlDto.expirationDate == null) {
             urlDto.expirationDate = LocalDate.now().plusDays(3);
         }
+      return new Url(urlDto.id, urlDto.longUrl, urlDto.expirationDate, null);
+    }
 
 
     private static UrlDto convertUrlToUrlDto(Url url) {

@@ -53,19 +53,19 @@ class RedirectRestControllerTest {
 
     @Test
     void test_redirectToLongUrl_GetRequest() throws Exception {
-        Url url = new Url(40,
-                "http://microsoft.com",
-                LocalDate.of(2021, 5, 10),
-                "ceBwbY");
+        Url url = new Url(95,
+                "http://facebook.com",
+                LocalDate.of(2021, 10, 21),
+                "oxjq0");
 
-        when(redirectServiceMock.findLongUrlByShortUrl(any(String.class)))
+        when(redirectServiceMock.getLongUrl(any(String.class)))
                 .thenReturn(url);
 
-        mockMvc.perform(get("/ceBwbY"))
+        mockMvc.perform(get("/oxjq0"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(content().contentType("text/plain;charset=UTF-8"))
-                .andExpect(content().string("http://microsoft.com"));
+                .andExpect(header().stringValues("Location", "http://facebook.com"))
+                .andExpect(redirectedUrl("http://facebook.com"));
 
     }
 
