@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.time.LocalDate;
+
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/")
@@ -20,9 +22,12 @@ public class UrlShortenerController {
         this.shortenerService = shortenerService;
     }
 
-    private static Url convertUrlDtoToUrl(UrlDto urlDto) {
-        return new Url(urlDto.id, urlDto.longUrl, urlDto.expirationDate, null);
-    }
+
+    private static Url convertUrlDtoToUrl(UrlDto urlDto){
+        if(urlDto.expirationDate == null){
+            urlDto.expirationDate = LocalDate.now().plusDays(3);
+        }
+
 
     private static UrlDto convertUrlToUrlDto(Url url) {
         return new UrlDto(url.id, url.longUrl, url.expirationDate, new ShortUrl(url.shortUrl));

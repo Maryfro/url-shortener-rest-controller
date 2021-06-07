@@ -71,6 +71,7 @@ class UrlShortenerRestControllerApplicationTests {
 
 
 
+       
         when(shortenerServiceMock.save(any(Url.class))).thenReturn(added);
 
 
@@ -84,6 +85,7 @@ class UrlShortenerRestControllerApplicationTests {
                 .andExpect(content().contentType(TestUtil.APPLICATION_JSON))
                 .andExpect(jsonPath("$.shortUrl", is("http://localhost:8080/ceBwbY")));
       //  .andExpect(content().json("{\"shortUrl\": \"http://localhost:8080/ceBwbY\"}"));
+
 
         verify(shortenerServiceMock, times(1)).save(any(Url.class));
         verifyNoMoreInteractions(shortenerServiceMock);

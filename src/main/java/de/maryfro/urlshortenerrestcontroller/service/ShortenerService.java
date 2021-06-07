@@ -1,6 +1,5 @@
 package de.maryfro.urlshortenerrestcontroller.service;
 
-import de.maryfro.urlshortenerrestcontroller.dto.UrlDto;
 import de.maryfro.urlshortenerrestcontroller.entity.Url;
 import de.maryfro.urlshortenerrestcontroller.repo.Repository;
 import org.springframework.stereotype.Service;
@@ -8,10 +7,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ShortenerService {
     Repository repo;
+    LRUCacheService cache;
     public final static String HOST = "http://localhost:8080/";
 
-    public ShortenerService(Repository repo) {
+    public ShortenerService(Repository repo, LRUCacheService cache) {
         this.repo = repo;
+        this.cache = cache;
+
     }
 
 
@@ -28,6 +30,7 @@ public class ShortenerService {
     public Url save(Url url) {
         url.shortUrl = shortenUrl(url);
         repo.save(url);
+        cache.put(url.shortUrl, url);
         return url;
     }
 
