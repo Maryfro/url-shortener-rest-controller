@@ -22,14 +22,14 @@ public class UrlShortenerController {
         this.shortenerService = shortenerService;
     }
 
+
     private static Url convertUrlDtoToUrl(UrlDto urlDto){
         if(urlDto.expirationDate == null){
             urlDto.expirationDate = LocalDate.now().plusDays(3);
         }
-        return new Url(urlDto.id, urlDto.longUrl, urlDto.expirationDate, null);
-    }
 
-    private static UrlDto convertUrlToUrlDto(Url url){
+
+    private static UrlDto convertUrlToUrlDto(Url url) {
         return new UrlDto(url.id, url.longUrl, url.expirationDate, new ShortUrl(url.shortUrl));
     }
 
