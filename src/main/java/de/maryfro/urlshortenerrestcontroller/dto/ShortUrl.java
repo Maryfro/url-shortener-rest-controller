@@ -8,4 +8,11 @@ public class ShortUrl {
     public ShortUrl(String shortUrl) {
         this.shortUrl = ShortenerService.HOST + shortUrl;
     }
+
+    @Override
+    public String toString() {
+        return "ShortUrl{" +
+                "shortUrl='" + shortUrl + '\'' +
+                '}';
+    }
 }

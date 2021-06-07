@@ -1,11 +1,14 @@
 buildscript {
-
+    dependencies {
+        classpath 'org.postgresql:postgresql:42.2.14'
+    }
 }
 
 plugins {
     id 'org.springframework.boot' version '2.4.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "org.flywaydb.flyway" version "7.8.2"
 }
 
 group = 'de.maryfro'
@@ -22,8 +25,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.testng:testng:7.1.0'
-    implementation 'org.testng:testng:7.1.0'
-    implementation 'junit:junit:4.12'
     implementation 'junit:junit:4.12'
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -33,4 +34,10 @@ test {
     useJUnitPlatform()
 }
 
+flyway {
+    url = 'jdbc:postgresql://localhost:5432/url'
+    user = 'maryfro'
+    password = 'Initial286'
+    schemas = ['url']
+}
 

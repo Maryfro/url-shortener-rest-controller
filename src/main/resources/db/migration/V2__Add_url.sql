@@ -1,0 +1,1 @@
+insert into URL (ID, LONG_URL, SHORT_URL) values (100, 'www.test.ru', 'test');

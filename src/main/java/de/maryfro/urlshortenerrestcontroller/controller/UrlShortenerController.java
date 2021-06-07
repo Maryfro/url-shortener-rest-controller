@@ -10,23 +10,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.time.LocalDate;
+
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/")
-public class RestController {
+public class UrlShortenerController {
     private final ShortenerService shortenerService;
 
-    public RestController(ShortenerService shortenerService) {
+    public UrlShortenerController(ShortenerService shortenerService) {
         this.shortenerService = shortenerService;
+    }
+
+
+    private static Url convertUrlDtoToUrl(UrlDto urlDto){
+        if(urlDto.expirationDate == null){
+            urlDto.expirationDate = LocalDate.now().plusDays(3);
+        }
+
+
+    private static UrlDto convertUrlToUrlDto(Url url) {
+        return new UrlDto(url.id, url.longUrl, url.expirationDate, new ShortUrl(url.shortUrl));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public ShortUrl redirect(@RequestBody UrlDto urlDto) {
-        String res = shortenerService.shortenUrl(urlDto);
-        urlDto.shortUrl = new ShortUrl(res);
-        Url url = new Url(urlDto.id,  urlDto.longUrl, urlDto.expirationDate, urlDto.shortUrl.shortUrl);
-        shortenerService.save(url);
-        return urlDto.shortUrl;
+    public ShortUrl getShortUrl(@RequestBody UrlDto urlDto) {
+        Url url = convertUrlDtoToUrl(urlDto);
+        Url added = shortenerService.save(url);
+        return new ShortUrl(added.getShortUrl());
     }
 }

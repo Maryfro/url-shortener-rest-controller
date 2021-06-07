@@ -9,13 +9,14 @@ public class UrlDto {
     public LocalDate expirationDate;
     public ShortUrl shortUrl;
 
+
     public UrlDto(int id, String longUrl, LocalDate expirationDate, ShortUrl shortUrl) {
         this.id = id;
         this.longUrl = longUrl;
         this.expirationDate = expirationDate;
         this.shortUrl = shortUrl;
-    }
 
+    }
 
     @Override
     public String toString() {
@@ -24,6 +25,6 @@ public class UrlDto {
                 ", longUrl='" + longUrl + '\'' +
                 ", expirationDate=" + expirationDate +
                 ", shortUrl=" + shortUrl +
-                '}';
+               '}';
     }
 }
