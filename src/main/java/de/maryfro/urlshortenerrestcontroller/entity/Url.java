@@ -1,6 +1,6 @@
 package de.maryfro.urlshortenerrestcontroller.entity;
 
-import de.maryfro.urlshortenerrestcontroller.dto.ShortUrl;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
+@Data
 public class Url {
 
     @Id
