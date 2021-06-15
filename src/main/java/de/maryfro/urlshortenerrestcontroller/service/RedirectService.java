@@ -5,15 +5,21 @@ import de.maryfro.urlshortenerrestcontroller.repo.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RedirectService {
     Repository repo;
     LRUCacheService cache;
+    //String[] shortUrls;
+
+
 
     public RedirectService(Repository repo, LRUCacheService cache) {
         this.repo = repo;
         this.cache = cache;
+      //  this.shortUrls = getShortUrls().toArray(new String[0]);
     }
 
     public Url getCachedUrl(String shortUrl) {
@@ -33,6 +39,10 @@ public class RedirectService {
             return null;
         }
         return url;
+    }
+
+    public List<String> getShortUrls(){
+        return repo.findAll().stream().map(Url::getShortUrl).collect(Collectors.toList());
     }
 }
 

@@ -16,6 +16,5 @@ public class DataBaseCleaner {
     @Scheduled(fixedDelay = 100_000_000)
     public void deleteExpiredLinks() {
         repo.deleteUrlByExpirationDateIsBefore(LocalDate.now());
-        System.out.println("deleted");
     }
 }
