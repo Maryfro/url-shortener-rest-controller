@@ -15,6 +15,8 @@ public class StatisticsService {
     }
 
     public List<Url> getMostVisitedUrls() {
-        return statisticsRepo.findAllByOrderByCounterDesc();
+        return statisticsRepo.findTop10ByOrderByCounterDesc();
     }
+
+
 }

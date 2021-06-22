@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface StatisticsRepo extends CrudRepository<Statistics, Integer> {
 
-    //TODO How to connect repo with table?
+    List<Url> findTop10ByOrderByCounterDesc();
 
 
-    List<Url> findAllByOrderByCounterDesc();
-    // List<Url> findTop10ByOrderByCounterDesc();
+
+
 
 
 }
