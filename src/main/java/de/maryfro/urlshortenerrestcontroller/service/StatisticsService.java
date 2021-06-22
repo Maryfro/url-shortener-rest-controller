@@ -1,5 +1,6 @@
 package de.maryfro.urlshortenerrestcontroller.service;
 
+import de.maryfro.urlshortenerrestcontroller.entity.Statistics;
 import de.maryfro.urlshortenerrestcontroller.entity.Url;
 import de.maryfro.urlshortenerrestcontroller.repo.StatisticsRepo;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class StatisticsService {
     }
 
 
-    public List<Url> getMostVisitedUrls() {
+    public List<Statistics> getMostVisitedUrls() {
+        System.out.println(statisticsRepo.findTop10ByOrderByCounterDesc());
         return statisticsRepo.findTop10ByOrderByCounterDesc();
     }
 
