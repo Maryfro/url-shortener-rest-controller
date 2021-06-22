@@ -20,3 +20,6 @@ public class StatisticsRestController {
         return ss.getMostVisitedUrls();
     }
 }
+
+//TODO display statistics
+//TODO make script accept all short links
