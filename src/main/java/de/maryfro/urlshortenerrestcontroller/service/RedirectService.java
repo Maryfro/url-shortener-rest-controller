@@ -38,11 +38,9 @@ public class RedirectService {
         if (url == null || url.expirationDate.isBefore(LocalDate.now())) {
             return null;
         }
-        kafkaProducer.sendKafkaMessage(url);
+      //  kafkaProducer.sendKafkaMessage(url);
         return url;
     }
-
-
 
 
     public List<String> getShortUrls() {

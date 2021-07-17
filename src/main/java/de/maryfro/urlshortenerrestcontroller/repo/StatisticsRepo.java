@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface StatisticsRepo extends CrudRepository<Statistics, Integer> {
 
-    List<Statistics> findTop10ByOrderByCounterDesc();
+    List<Statistics> findTop5ByOrderByCounterDesc();
 
 
     @Modifying
