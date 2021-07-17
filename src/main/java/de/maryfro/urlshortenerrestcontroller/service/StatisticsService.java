@@ -30,7 +30,6 @@ public class StatisticsService {
 
 
     public List<Statistics> getMostVisitedUrls() {
-        System.out.println(statisticsRepo.findTop10ByOrderByCounterDesc());
         return statisticsRepo.findTop10ByOrderByCounterDesc();
     }
 
