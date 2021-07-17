@@ -1,6 +1,6 @@
 package de.maryfro.urlshortenerrestcontroller.controller;
 
-import de.maryfro.urlshortenerrestcontroller.entity.Url;
+import de.maryfro.urlshortenerrestcontroller.entity.Statistics;
 import de.maryfro.urlshortenerrestcontroller.service.StatisticsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,8 @@ public class StatisticsRestController {
     }
 
     @GetMapping("/statistics")
-    public List<Url> displayMostVisitedUrls() {
+    public List<Statistics> displayMostVisitedUrls() {
         return ss.getMostVisitedUrls();
     }
 }
+

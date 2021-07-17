@@ -31,7 +31,6 @@ public class RedirectRestController {
         if (url == null) {
             throw new EntityNotFoundException();
         }
-        redirectService.sendKafkaMessage(url);
 
         httpHeaders.setLocation(new URI(url.longUrl));
         return new ResponseEntity<>(httpHeaders, HttpStatus.MOVED_PERMANENTLY);
