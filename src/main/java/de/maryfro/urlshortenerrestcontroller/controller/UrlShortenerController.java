@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping("/")
+@RequestMapping("/api/")
 public class UrlShortenerController {
     private final ShortenerService shortenerService;
 

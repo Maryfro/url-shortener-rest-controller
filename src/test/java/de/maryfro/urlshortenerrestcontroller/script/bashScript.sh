@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SHORTURLS=(ccRdlV cetI0X cetI0W bXLDwW bKpHI4 bYd8fs oxjq0)
+SHORTURLS=(03bI6 LY6RB gwBye bXLDwW bKpHI4 bYd8fs oxjq0)
 host="http://localhost:8080/"
 #COUNTER=0
 

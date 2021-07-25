@@ -17,7 +17,7 @@ public class StatisticsRestController {
         this.ss = ss;
     }
 
-    @GetMapping("/statistics")
+    @GetMapping("/api/statistics")
     public List<Statistics> displayMostVisitedUrls() {
         return ss.getMostVisitedUrls();
     }

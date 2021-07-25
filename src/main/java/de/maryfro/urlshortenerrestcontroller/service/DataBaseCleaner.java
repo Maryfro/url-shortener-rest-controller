@@ -1,4 +1,5 @@
 package de.maryfro.urlshortenerrestcontroller.service;
+
 import de.maryfro.urlshortenerrestcontroller.repo.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,8 +14,11 @@ public class DataBaseCleaner {
     @Autowired
     Repository repo;
 
+
     @Scheduled(fixedDelay = 100_000_000)
     public void deleteExpiredLinks() {
         repo.deleteUrlByExpirationDateIsBefore(LocalDate.now());
     }
+
+
 }

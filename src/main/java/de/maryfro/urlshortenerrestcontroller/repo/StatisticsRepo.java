@@ -15,9 +15,13 @@ public interface StatisticsRepo extends CrudRepository<Statistics, Integer> {
 
 
     @Modifying
-    @Query(value = "insert into statistics (id, short_url, long_url, counter) VALUES(:id, :short_url, :long_url, :counter) ON CONFLICT (id) DO UPDATE SET counter=statistics.counter+1", nativeQuery = true)
+    @Query(value = "insert into statistics (id, short_url, long_url, counter) VALUES(:id, :short_url, :long_url, :counter) ON CONFLICT (short_url) DO UPDATE SET counter=statistics.counter+1", nativeQuery = true)
     @Transactional
     void updateStatistics(@Param("id") int id, @Param("short_url") String shortUrl, @Param("long_url") String longUrl, @Param("counter") Long counter);
 
+
+
+
+    void deleteUrlByShortUrl(String shortUrl);
 
 }

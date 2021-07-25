@@ -26,7 +26,7 @@ public class RedirectRestController {
 
 
 
-    @GetMapping("/{shortUrl}")
+    @GetMapping("/api/{shortUrl}")
     public ResponseEntity<String> redirectToLongUrl(@PathVariable String shortUrl) throws EntityNotFoundException, URISyntaxException {
         Url url = redirectService.getLongUrl(shortUrl);
         HttpHeaders httpHeaders = new HttpHeaders();
